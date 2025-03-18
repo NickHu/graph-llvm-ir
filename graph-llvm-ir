@@ -101,7 +101,7 @@ class Graph:
                     self.write("subgraph \"cluster_%s\" {" % name)
 
                 if not self.options.block_edges:
-                    self.write('\"%s\" [label="label: \"%s\""]' % (name, name))
+                    self.write('\"%s\" [label="label: \\"%s\\""]' % (name, name))
                 elif self.options.block_edges_helpers:
                     self.write(
                         '\"%s\" [shape=point height=0.02 width=0.02 color=red fixedsize=true]' % name)
