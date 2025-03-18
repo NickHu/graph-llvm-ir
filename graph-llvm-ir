@@ -166,10 +166,10 @@ class Graph:
                         arg_val = a
                     else:
                         arg_val = a.name
-                    if i.opcode == "br" and type(a) is ll.Block:
+                    if i.opcode == "br" and a.value_kind is llvm.ValueKind.basic_block:
                         # For jump targets, we jump from current node to label (arg)
                         if self.options.block_edges and not self.options.block_edges_helpers:
-                            arg_val = a.instructions[0].name
+                            arg_val = next(b for b in self.f.blocks if b.name == a.name).instructions.next().name
                         attrs = "[color=red]"
                         if self.options.block_edges:
                             attrs += "[color=red][lhead=\"cluster_%s\"][ltail=\"cluster_%s\"][weight=5]" % (
