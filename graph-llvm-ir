@@ -162,7 +162,7 @@ class Graph:
                         self.edge(last_inst_name, n, "[color=red]")
 
                 for a in i.operands:
-                    if isinstance(a, ll.Constant) and not a.name:
+                    if a.is_constant and not a.name:
                         arg_val = a
                     else:
                         arg_val = a.name
