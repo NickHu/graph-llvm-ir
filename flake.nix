@@ -6,6 +6,7 @@
   };
   outputs =
     {
+      self,
       nixpkgs,
       flake-utils,
       ...
@@ -18,6 +19,19 @@
       {
         devShell = pkgs.mkShell {
           buildInputs = [
+            (pkgs.python3.withPackages (python-pkgs: [ python-pkgs.llvmlite ]))
+          ];
+        };
+        packages.default = pkgs.python3Packages.buildPythonApplication {
+          pname = "graph-llvm-ir";
+          version = "unstable-${self.shortRev or self.dirtyShortRev}";
+          src = self;
+          format = "other";
+          installPhase = ''
+            mkdir -p $out/bin
+            cp graph-llvm-ir $out/bin/
+          '';
+          propagatedBuildInputs = [
             (pkgs.python3.withPackages (python-pkgs: [ python-pkgs.llvmlite ]))
           ];
         };
