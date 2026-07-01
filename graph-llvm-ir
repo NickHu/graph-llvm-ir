@@ -149,7 +149,7 @@ class Graph:
             last_inst_name = None
             for i in b.instructions:
                 n = self.instr_name(i)
-                self.write('\"%s\" [label="%s"]' % (n, i))
+                self.write('"%s" [label="%s"]' % (n, str(i).replace('"', '\\"')))
                 if self.options.control:
                     if last_inst_name:
                         self.edge(last_inst_name, n, "[color=red weight=2]")
@@ -159,7 +159,7 @@ class Graph:
 
                 for a in i.operands:
                     if a.is_constant and not a.name:
-                        arg_val = a
+                        arg_val = str(a).replace('"', '\\"')
                     else:
                         arg_val = a.name
                     if i.opcode == "br" and a.value_kind is llvm.ValueKind.basic_block:
