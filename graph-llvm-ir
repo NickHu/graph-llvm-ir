@@ -109,7 +109,6 @@ class Graph:
 
     def render(self):
         self.start_graph()
-        self.declare_clusters()
         lab = 1
         for b in self.f.blocks:
             block_name = self.block_name(b)
